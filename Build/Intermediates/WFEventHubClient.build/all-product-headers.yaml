@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/WFEventHubClient.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "WFEventHubClient-Swift.h",
+          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/WFEventHubClient.framework/Headers/WFEventHubClient-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "WFEventHubClient.h",
+          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/WFEventHubClient/WFEventHubClient.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/WFEventHubClient.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Intermediates/WFEventHubClient.build/Debug-iphonesimulator/WFEventHubClient.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

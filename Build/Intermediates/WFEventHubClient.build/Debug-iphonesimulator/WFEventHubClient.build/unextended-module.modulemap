@@ -1,0 +1,10 @@
+framework module WFEventHubClient {
+  umbrella header "WFEventHubClient.h"
+
+  export *
+  module * { export * }
+}
+
+module WFEventHubClient.__Swift {
+    exclude header "WFEventHubClient-Swift.h"
+}

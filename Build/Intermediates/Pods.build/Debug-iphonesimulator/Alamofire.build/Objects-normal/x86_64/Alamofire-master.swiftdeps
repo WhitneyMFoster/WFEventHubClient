@@ -1,0 +1,21 @@
+version: "Apple Swift version 2.1.1 (swiftlang-700.1.101.15 clang-700.1.81)"
+options: "9967f67a4b116ce06cab60f7b69b5785"
+build_time: [510974473, 765250000]
+inputs:
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Response.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Error.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Manager.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/ResponseSerialization.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Notifications.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Request.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Alamofire.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Download.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/ParameterEncoding.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Upload.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Validation.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/NetworkReachabilityManager.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Timeline.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/MultipartFormData.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Stream.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/Result.swift": [510973372, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Alamofire/Source/ServerTrustPolicy.swift": [510973372, 0]

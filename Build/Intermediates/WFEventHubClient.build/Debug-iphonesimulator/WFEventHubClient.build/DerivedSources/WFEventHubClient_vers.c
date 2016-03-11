@@ -1,0 +1,1 @@
+ const unsigned char WFEventHubClientVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:WFEventHubClient  PROJECT:WFEventHubClient-1" "\n"; const double WFEventHubClientVersionNumber __attribute__ ((used)) = (double)1.;
