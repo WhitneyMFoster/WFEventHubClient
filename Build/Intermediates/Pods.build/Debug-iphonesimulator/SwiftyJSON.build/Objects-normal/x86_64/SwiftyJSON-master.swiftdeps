@@ -1,5 +1,5 @@
 version: "Apple Swift version 2.1.1 (swiftlang-700.1.101.15 clang-700.1.81)"
 options: "89c9f6b48ec2fb99e8be8b69488b56f2"
-build_time: [510974472, 789630000]
+build_time: [511317897, 298358000]
 inputs:
   "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/SwiftyJSON/Source/SwiftyJSON.swift": [510974419, 0]

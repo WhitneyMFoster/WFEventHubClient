@@ -8,13 +8,13 @@ provides-member:
 provides-dynamic-lookup:
 depends-top-level:
 - "CustomDebugStringConvertible"
-- "String"
-- !private "StringLiteralType"
 - "ErrorType"
 - "CustomStringConvertible"
-- !private "!"
-- "Bool"
+- !private "StringLiteralType"
 - "Result"
+- "String"
+- "Bool"
+- !private "!"
 - !private "BooleanLiteralType"
 depends-member:
 - !private ["PSs9AnyObject", "init"]

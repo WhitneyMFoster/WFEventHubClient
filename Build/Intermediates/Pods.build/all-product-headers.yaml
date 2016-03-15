@@ -4,33 +4,6 @@
   'roots': [
     {
       'type': 'directory',
-      'name': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/Alamofire.framework/Headers",
-      'contents': [
-        {
-          'type': 'file',
-          'name': "Alamofire-Swift.h",
-          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/Alamofire.framework/Headers/Alamofire-Swift.h"
-        },
-        {
-          'type': 'file',
-          'name': "Alamofire-umbrella.h",
-          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/Pods/Target Support Files/Alamofire/Alamofire-umbrella.h"
-        }
-      ]
-    },
-    {
-      'type': 'directory',
-      'name': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/Alamofire.framework/Modules",
-      'contents': [
-        {
-          'type': 'file',
-          'name': "module.modulemap",
-          'external-contents': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Intermediates/Pods.build/Debug-iphonesimulator/Alamofire.build/module.modulemap"
-        }
-      ]
-    },
-    {
-      'type': 'directory',
       'name': "/Users/whitneyfoster/Dev/WFEventHubClient/Build/Products/Debug-iphonesimulator/Pods_WFEventHubClient.framework/Headers",
       'contents': [
         {

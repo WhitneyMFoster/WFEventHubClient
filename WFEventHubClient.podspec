@@ -36,20 +36,19 @@ s.homepage = "https://github.com/WhitneyMFoster/WFEventHubClient"
 
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
-s.source = { :git => "https://github.com/WhitneyMFoster/WFEventHubClient.git", :commit => "a9517d611e7abcc979249ba075afd60a91601aa2"}
+s.source = { :git => "https://github.com/WhitneyMFoster/WFEventHubClient.git", :tag => "#{s.version}" }
 
 # For example,
 # s.source = { :git => "https://github.com/JRG-Developer/RWPickFlavor.git", :tag => "#{s.version}"}
 
 # 7
 s.framework = "UIKit"
-s.dependency 'Alamofire'
 s.dependency 'SwiftyJSON'
 
 # 8
 s.source_files = "WFEventHubClient/**/*.{swift}"
 
 # 9
-s.resources = "WFEventHubClient/**/*.{png,jpeg,jpg,storyboard,xib}"
+#s.resources = "WFEventHubClient/**/*.{png,jpeg,jpg,storyboard,xib}"
 
 end

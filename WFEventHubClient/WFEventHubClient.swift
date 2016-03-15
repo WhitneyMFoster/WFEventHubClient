@@ -7,28 +7,57 @@
 //
 
 import Foundation
-import Alamofire
 import SwiftyJSON
+
+//extension String {
+//    func toBytes() -> [UInt32]? {
+//        return self.dataUsingEncoding(NSUTF8StringEncoding)?.toBytes()
+//    }
+//}
+//
+//extension NSData {
+//    func toBytes() -> [UInt32]? {
+//        var array: [UInt32]?
+//        // the number of elements:
+//        let count = self.length / sizeof(UInt32)
+//        
+//        // create array of appropriate length:
+//        array = [UInt32](count: count, repeatedValue: 0)
+//        
+//        // copy bytes into array
+//        self.getBytes(&array, length:count * sizeof(UInt32))
+//        
+//        print(array!)
+//        // Output: [32, 4, 123, 4, 5, 2]
+//        return array
+//    }
+//}
 
 // MARK: - WFEvent
 class WFEvent {
-    private(set) var contentLength: Int = 0
-    private(set) var body: JSON? = nil
+    let parameters: [String: AnyObject]
     
-    init(var parameters: [String: AnyObject]) {
-        var b = "{"
-        var count = 0
-        for o in parameters {
-            count++
-            b += "\(o.0):\(o.1)"
-            if count < parameters.count {
-                b += ","
-            }
+    init(parameters p: [String: AnyObject]) {
+        self.parameters = p
+    }
+    
+    func getData() -> NSData? {
+        var params = [Dictionary<String, AnyObject>]()
+        for o in self.parameters {
+            params.append([o.0: o.1])
         }
-        b += "}"
-        b = b.stringByReplacingOccurrencesOfString(" ", withString: "")
-        self.body = JSON.parse(b)
-        self.contentLength = b.characters.count
+        var data: NSData?
+        do {
+            data = try JSON(params).rawData()
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        return data
+    }
+    
+    func contentLength() -> Int {
+        return self.getData()?.length ?? 0
     }
 }
 
@@ -38,9 +67,6 @@ class WFError: ErrorType {
     private let errCode: Int
     private let message: String
     
-    /**
-     Error type
-     */
     init(code: Int, message: String) {
         self.errCode = code
         self.message = message
@@ -49,76 +75,96 @@ class WFError: ErrorType {
 
 // MARK: - WFEventHubAuthorization
 struct WFEventHubAuthorization {
-    private var url: String = ""
-    private var consumerGroup: String = ""
-    private var policyName: String = ""
-    private var policyPrimaryKey: String = ""
-    private var policySecondaryKey: String = ""
+    private let server: String // should be encoded
+    private let keyName: String
+    private let key: String
+    let nameSpace: String
     
-    init () {
-        
+    init(nameSpace s: String, keyName n: String, key k: String) {
+        self.nameSpace = s
+        self.server = "https://\(self.nameSpace).servicebus.windows.net/"
+        self.keyName = n
+        self.key = k
     }
     
-    init(url: String, consumerGroup: String, policyName: String, policyPrimaryKey: String, policySecondaryKey: String) {
-        self.url = url
-        self.consumerGroup = consumerGroup
-        self.policyName = policyName
-        self.policyPrimaryKey = policyPrimaryKey
-        self.policySecondaryKey = policySecondaryKey
-    }
-    
-    func isEmpty() -> Bool {
-        return self.url.isEmpty || self.policySecondaryKey.isEmpty || self.policyPrimaryKey.isEmpty || self.policyName.isEmpty || self.consumerGroup.isEmpty
+    func getAuthString() -> String {
+        let expiry = NSDate().timeIntervalSince1970 + 604800 //unix timestamp + seconds in one week
+        let signatureToSign = "\(self.server)\\n\(expiry)"
+        let hmac = signatureToSign.hmac(CryptoAlgorithm.SHA256, key: key)
+        let sasToken = "SharedAccessSignature sr=\(self.server)&sig=\(hmac)&se=\(expiry)&skn=\(self.keyName)"
+        print(sasToken)
+        return sasToken
     }
 }
 
 // MARK: - WFEventHubClient
-private(set) var sharedClient: WFEventHubClient = WFEventHubClient()
 class WFEventHubClient {
-    private var authorization: WFEventHubAuthorization = WFEventHubAuthorization()
+    static let sharedClient: WFEventHubClient = WFEventHubClient()
+    private var events: [WFEvent] = [WFEvent]()
+    private var timer: NSTimer?
+    private var eventHub: String?
+    private var authorization: WFEventHubAuthorization?
+    private var urlRequest: NSMutableURLRequest?
     
-    init() {
+    private init() {
         
     }
     
-    /**
-     This sets the authorization information for the client. This must be done before any events are sent
-     - Throws: error code 1 ("Invalid Credentials") if any authorization strings are empty
-     */
-    func setAuthorization(authorization a: WFEventHubAuthorization) throws {
-        self.authorization = a
-        sharedClient = self
-        if a.isEmpty() {
-            throw WFError(code: 1, message: "Invalid Credentials")
+    func setAuthorization(authorization: WFEventHubAuthorization, eventHub h: String, contentType: String, host: String) {
+        self.authorization = authorization
+        self.eventHub = h
+        let requestString = "https://\(self.authorization!.nameSpace).servicebus.windows.net/\(self.eventHub)/messages"
+        let url = NSURL(string: requestString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())!)
+        self.urlRequest = NSMutableURLRequest(URL: url!)
+        self.urlRequest?.HTTPMethod = "POST";
+        self.urlRequest?.setValue(self.authorization?.getAuthString() ?? "", forHTTPHeaderField: "Authorization")
+        self.urlRequest?.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        self.urlRequest?.setValue(host, forHTTPHeaderField: "Host")
+    }
+    
+    func queueEvent(event: WFEvent) {
+        var futureSize = event.contentLength()
+        for e in self.events {
+            futureSize += e.contentLength()
+        }
+        if futureSize >= 256 {
+            self.sendAllEvents()
+        }
+        self.events.append(event)
+        if self.timer == nil {
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(300, target: self, selector: "sendAllEvents", userInfo: nil, repeats: false)
         }
     }
     
-    private func getSASToken() throws {
-        if self.authorization.isEmpty() == true {
-            throw WFError(code: 1, message: "Invalid Credentials")
-        }
-        else {
-            let now: NSDate = NSDate()
-        }
-    }
-    
-    private func makeHeaders(additionalHeaders: [String: String]?) -> [String: String] {
-        var headers: [String: String] = [String: String]()
-        if authorization.isEmpty() == false {
-            headers = [
-                "Authorization" : "",
-                "Content-Type" : "",
-                "Host": ""
-            ]
-            for h in additionalHeaders ?? [String: String]() {
-                headers[h.0] = h.1
+    func sendAllEvents() {
+        self.timer = nil
+        var length = 0
+        var events: String = ""
+        var i = 1
+        for e in self.events {
+            length += e.contentLength()
+            events += "{"
+            var j = 1
+            for p in e.parameters {
+                events += "\(p.0):\(p.1)" + ((j == e.parameters.count) ? "" : ",")
+                j++
             }
+            events += (i == self.events.count) ? "}" : "}, "
+            i++
         }
-        return headers
+        print(events)
+        
+        self.urlRequest?.setValue("\(length)", forHTTPHeaderField: "Content-Length")
+        self.urlRequest?.setValue("100-continue", forHTTPHeaderField: "Expect")
+        
+        self.urlRequest?.HTTPBody = events.dataUsingEncoding(NSUTF8StringEncoding)
+        NSURLConnection.sendAsynchronousRequest(self.urlRequest!, queue: NSOperationQueue.currentQueue() ?? NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            print(response)
+            print(data)
+            print(error)
+        }
+        
     }
     
-    func sendEvent(event: WFEvent) {
-//        Alamofire.request(Method.POST, self.authorization.url, parameters: <#T##[String : AnyObject]?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##[String : String]?#>)
-    }
     
 }

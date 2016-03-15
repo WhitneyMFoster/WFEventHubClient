@@ -10,15 +10,15 @@ provides-member:
 provides-dynamic-lookup:
 depends-top-level:
 - !private "Dictionary"
+- "Error"
 - "NSError"
-- !private "NSLocalizedFailureReasonErrorKey"
+- "String"
+- "Int"
 - "FloatLiteralType"
 - "=="
 - !private "~="
 - "IntegerLiteralType"
-- "String"
-- "Error"
-- "Int"
+- !private "NSLocalizedFailureReasonErrorKey"
 - "StringLiteralType"
 depends-member:
 - !private ["PSs9AnyObject", "init"]

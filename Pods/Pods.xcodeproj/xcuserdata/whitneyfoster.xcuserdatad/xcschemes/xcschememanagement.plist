@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-WFEventHubClient.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<key>4B1BF1F7E821C97ACF33D8A2BE049318</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ADC706007F3F2386B6FA3F4DD7292669</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F105620F647F20839D2BF186EAA5A117</key>
+		<key>F5F9DA41FD3ED85BB61CF7DF7810BD9F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

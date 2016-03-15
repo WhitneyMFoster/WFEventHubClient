@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'BA98ADEA4CAD460842DCC8C4'
+               BlueprintIdentifier = '0A85F4093B9FCB3222A9DEAB'
                BlueprintName = 'Pods-WFEventHubClient'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_WFEventHubClient.framework'>

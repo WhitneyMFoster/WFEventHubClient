@@ -1,5 +1,6 @@
 version: "Apple Swift version 2.1.1 (swiftlang-700.1.101.15 clang-700.1.81)"
-options: "3af790b68c0e2bc59f62ef45e6f95039"
-build_time: [510974865, 212577000]
+options: "43297c2bc0e2a6c95265cab6773b0dab"
+build_time: [511318386, 907400000]
 inputs:
-  "/Users/whitneyfoster/Dev/WFEventHubClient/WFEventHubClient/WFEventHubClient.swift": [510974863, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/WFEventHubClient/WFEventHubClient.swift": [511318384, 0]
+  "/Users/whitneyfoster/Dev/WFEventHubClient/WFEventHubClient/HMAC.swift": [511309191, 0]
